@@ -23,3 +23,16 @@
 //
 // -- This will overwrite an existing command --
 // Cypress.Commands.overwrite('visit', (originalFn, url, options) => { ... })
+Cypress.Commands.add('acceptCookies', () => {
+    cy.get('body').then(($body) => {
+      if ($body.find('#sp-cc-rejectall-link').length > 0) {
+        cy.get('#sp-cc-rejectall-link').click();
+      } else {
+        cy.get('body').then(($body) => {
+          if ($body.find('#sp-cc-rejectall-link').length > 0) {
+            cy.get('#sp-cc-rejectall-link').click();
+          }
+        });
+      }
+    });
+  });
